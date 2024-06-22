@@ -1,4 +1,4 @@
-# aws-org-terraform
+# service-platform-aws
 
 # Git merge rules
 
