@@ -1,0 +1,21 @@
+name: deploy-development-all
+
+on:
+  push:
+    paths:
+      - etc/global.tfvars
+      - etc/dev.tfvars
+      - components/**
+    branches:
+      - 'main'
+
+  workflow_dispatch:
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/deploy-env-all-shared-workflow.yml
+    with:
+      environment: dev
+    secrets:
+      AWS_IAM_ROLE_TO_ASSUME_ARN: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME_ARN }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}

@@ -1,0 +1,20 @@
+name: test-all-core
+
+on:
+  pull_request:
+    paths:
+      - components/core/**
+      - etc/**
+    branches:
+      - 'main'
+
+  workflow_dispatch:
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/test-all-shared-workflow.yml
+    with:
+      component: core
+    secrets:
+      AWS_IAM_ROLE_TO_ASSUME_ARN: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME_ARN }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}

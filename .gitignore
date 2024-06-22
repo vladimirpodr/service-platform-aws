@@ -1,0 +1,8 @@
+.DS_Store
+/.vscode
+**/*.tfstate
+**/*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+**/plugin-cache
+plugin-cache/

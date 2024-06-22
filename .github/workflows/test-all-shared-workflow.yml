@@ -1,0 +1,46 @@
+name: Reusable workflow for Terraform Plan action
+
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
+    secrets:
+      AWS_IAM_ROLE_TO_ASSUME_ARN:
+        required: true
+      AWS_REGION:
+        required: true
+
+jobs:
+  codebuild-tf:
+    runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+
+    strategy:
+      matrix:
+        env: [dev]
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Run CodeBuild TF Plan
+        uses: aws-actions/aws-codebuild-run-build@v1.0.6
+        env:
+          ENV: ${{matrix.env}}
+          COMPONENT: ${{ inputs.component }}
+        with:
+          project-name: project-io-shrdsvc-cicd-codebuild-tf-plan
+          env-vars-for-codebuild: |
+            ENV,
+            COMPONENT

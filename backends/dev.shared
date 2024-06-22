@@ -1,0 +1,5 @@
+role_arn       = "arn:aws:iam::217004862555:role/project-io-dev-shared-services-assume-role"
+bucket         = "project-io-dev-tfstate-bucket"
+key            = "dev/shared/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "project-io-dev-tfstate-locks-table"
