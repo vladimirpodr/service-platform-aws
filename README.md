@@ -20,5 +20,7 @@ git commit -a -m 'feat: add support to phase of the moon'
 Based on input arguments it calculates required paths.
 There is no need to execute this script from within the 'bin' folder.
 Usage exampls:
+```bash
 1. bin/terraform.sh -e dev -c core -a plan [-o dev.core.tfplan]
 2. bin/terraform.sh -e dev -c core -a apply [-o dev.core.tfplan]
+```
